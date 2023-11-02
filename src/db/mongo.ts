@@ -1,14 +1,15 @@
 import {MongoClient} from 'mongodb';
+import {MONGO_URL} from '$env/static/private';
 import dotenv from 'dotenv';
 
 dotenv.config();
 //import { MONGO_URL } from '$env/static/private';
 
-const uri = import.meta.env.MONGO_URL
+const uri = MONGO_URL
 
 
 
-const client = new MongoClient('mongodb+srv://ecnelson:Iliketoskial0t@cluster0.tf6je40.mongodb.net/')
+const client = new MongoClient(uri)
 
 export function start_mongo(): Promise<MongoClient> {
     console.log("connected");
