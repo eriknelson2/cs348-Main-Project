@@ -3,7 +3,7 @@ import client from '$db/mongo'
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-	createSession: async ({request}) => {
+	default: async ({request}) => {
 		// TODO log the created session
         const data = await request.formData();
         console.log(data);

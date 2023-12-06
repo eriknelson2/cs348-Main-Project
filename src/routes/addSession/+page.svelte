@@ -6,18 +6,6 @@
   let time = "12:00 AM";
   let duration = "";
   let notes = "";
-  /*
-  function createSession() {
-    // You can access the user's input in the above variables (title, type, date, time, duration, notes)
-    // For example, you can log the values to the console or perform further actions here.
-    console.log("Is this working");
-    console.log("Title:", title);
-    console.log("Type:", type);
-    console.log("Date:", date);
-    console.log("Time:", time);
-    console.log("Duration:", duration);
-    console.log("Notes:", notes);
-  }*/
   export let data;
   export let form;
 
