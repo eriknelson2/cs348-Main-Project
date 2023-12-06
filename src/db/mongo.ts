@@ -17,4 +17,4 @@ export function start_mongo(): Promise<MongoClient> {
 }
 
 
-export default client.db()
+export default client.db("test")
