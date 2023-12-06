@@ -6,14 +6,14 @@ export const actions = {
 	createSession: async ({request}) => {
 		// TODO log the created session
         const data = await request.formData();
-
+        console.log(data);
+        
         const title = String(data.get('title'));
         const type = data.get('type');
         const date = data.get('date');
         const time = data.get('time');
         const duration = data.get('duration');
         const notes = data.get('notes');
-        
         const sessionData = {
             title,
             type,

@@ -6,7 +6,7 @@
   let time = "12:00 AM";
   let duration = "";
   let notes = "";
-
+  /*
   function createSession() {
     // You can access the user's input in the above variables (title, type, date, time, duration, notes)
     // For example, you can log the values to the console or perform further actions here.
@@ -17,7 +17,7 @@
     console.log("Time:", time);
     console.log("Duration:", duration);
     console.log("Notes:", notes);
-  }
+  }*/
   export let data;
   export let form;
 
@@ -27,20 +27,20 @@
     Create Session
 </div>
 
-<form method="POST" action="?/createSession">
-<div class="overflow-x-auto">
+<form method="POST">
+<div class="form-control overflow-x-auto">
     <table class="table">
       <tbody>
         <tr class="bg-base-200">
           <th>1</th>
           <td>Title</td>
-          <td><input type="text" placeholder="Type here" class="input input-bordered input-sm w-full max-w-xs" bind:value={title}/>
+          <td><input type="text" name="title" placeholder="Type here" class="input input-bordered input-sm w-full max-w-xs"/>
             </td>
         </tr>
         <tr>
           <th>2</th>
           <td>Type</td>
-          <td><select class="select select-bordered select-sm w-full max-w-xs" bind:value={type}>
+          <td><select class="select select-bordered select-sm w-full max-w-xs" name="type">
             <option disabled selected>Select</option>
             <option>Task</option>
             <option>Event</option>
@@ -50,13 +50,13 @@
         <tr>
           <th>3</th>
           <td>Date (MM/DD/YYYY)</td>
-          <td><input type="text" placeholder="Type here" class="input input-bordered input-sm w-full max-w-xs" bind:value={date}/></td>
+          <td><input type="text" name="date" placeholder="Type here" class="input input-bordered input-sm w-full max-w-xs"/></td>
         </tr>
         <tr>
             <th>4</th>
             <td>Time</td>
             <td>
-                <select class="select select-bordered select-sm w-full max-w-xs" bind:value={time}>
+                <select class="select select-bordered select-sm w-full max-w-xs" name="time">
                     <option disabled selected>Select</option>
                     <option>12:00 AM</option>
                     <option>12:30 AM</option>
@@ -111,21 +111,21 @@
         <tr>
             <th>5</th>
             <td>Duration (Hours)</td>
-            <td><input type="text" placeholder="Type here" class="input input-bordered input-sm w-full max-w-xs" bind:value={duration}/></td>
+            <td><input type="text" name="duration" placeholder="Type here" class="input input-bordered input-sm w-full max-w-xs"/></td>
         </tr>
         <tr>
             <th>6</th>
             <td>Notes</td>
             <td>
-                <textarea class="textarea textarea-bordered" placeholder="Bio" bind:value={notes}></textarea>
+                <textarea class="textarea textarea-bordered" name="notes" placeholder="Bio"></textarea>
             </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-<div class = create-button>  
-    <button class="btn btn-active btn-neutral" formaction="?/createSession">Create</button>
+<div class = "form-control create-button">  
+    <button class="btn btn-active btn-neutral">Create</button>
 </div>
 </form>
 
