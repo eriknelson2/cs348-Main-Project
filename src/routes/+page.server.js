@@ -47,5 +47,39 @@ export const actions = {
         'api-key': apiKey,
     },
     })
-    }
-}
+    },
+
+    update: async ({request}) => {
+        const data = await request.formData();
+        console.log(data)
+        const sessionId = String(data.get('id'));
+        const title = String(data.get('title'));
+        const type = data.get('type');
+        const date = data.get('date');
+        const time = data.get('time');
+        const duration = data.get('duration');
+        const notes = data.get('notes');
+
+        const apiKey = process.env.FOCUSSESSIONAPI;
+        axios.post('https://us-east-2.aws.data.mongodb-api.com/app/data-lkezz/endpoint/data/v1/action/updateOne', {
+            dataSource: 'CS348',
+            database: 'test',
+            collection: 'FocusSessions',
+            filter: { "_id": { "$oid": sessionId } },
+            update: {
+                $set: {
+                    "title": title,
+                    "type": type,
+                    "date": date,
+                    "time": time,
+                    "duration": duration,
+                    "notes": notes
+                }
+            }
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'api-key': apiKey,
+            }
+        });
+        }}
