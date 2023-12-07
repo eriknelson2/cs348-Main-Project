@@ -46,5 +46,34 @@ export const actions = {
         'api-key': apiKey,
     },
     })
+    },
+
+    update: async ({request}) => {
+        const data = await request.formData();
+        const todoId = String(data.get('id'));
+        const apiKey = process.env.FOCUSSESSIONAPI;
+        const title = data.get('title');
+        const type = data.get('type');
+        const date = data.get('date');
+        const notes = data.get('notes');
+        axios.post('https://us-east-2.aws.data.mongodb-api.com/app/data-lkezz/endpoint/data/v1/action/updateOne', {
+            dataSource: 'CS348',
+            database: 'test',
+            collection: 'todos',
+            filter: { "_id": { "$oid": todoId } },
+            update: {
+                $set: {
+                    "title": title,
+                    "type": type,
+                    "dueDate": date,
+                    "notes": notes
+                }
+            }
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'api-key': apiKey,
+            }
+        });
     }
 }

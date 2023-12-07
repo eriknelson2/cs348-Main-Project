@@ -16,8 +16,10 @@
    */
     let currentSession;
 
+  // @ts-ignore
   function showModal(session) {
     currentSession = session;
+    // @ts-ignore
     myModal.showModal();
   }
 

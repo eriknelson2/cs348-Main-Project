@@ -8,6 +8,17 @@
     // Assuming documents is an array
     let todos = documents || [];
 
+    let myModal;
+    let todo;
+    /**
+   * @type {{ title: any; type: any; date: any; time: any; duration: any; notes: any; }}
+   */
+    let currentTodo;
+
+  function showModal(todo) {
+    currentTodo = todo;
+    myModal.showModal();
+  }
 </script>
 
 <div class = "flex">
@@ -39,12 +50,63 @@
         </div>
         <div class="collapse-content"> 
           <p>Notes: {todo.notes}</p>
+          <div class = "flex mt-2">
+            <button class="btn btn-primary btn-sm" on:click={() => showModal(todo)}>Modify</button>
+            <dialog bind:this={myModal} id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+              <div class="modal-box">
+                <h3 class="font-bold text-lg">Modify Todo Item</h3>
+                  <p class="py-4">Modify the information of the todo below.</p>
+                  {#if currentTodo}
+                  <form method="POST" action="?/update">
+                    <input name = "id" type = "hidden" hidden value = {currentTodo._id}>
+                    <div class="form-control overflow-x-auto">
+                        <table class="table">
+                          <tbody>
+                            <tr class="bg-base-200">
+                              <th>1</th>
+                              <td>Title</td>
+                              <td><input type="text" name="title" placeholder="Type here" class="input input-bordered input-sm w-full max-w-xs" value={currentTodo.title}/></td>
+                            </tr>
+                            <tr>
+                              <th>2</th>
+                              <td>Type</td>
+                              <td><select class="select select-bordered select-sm w-full max-w-xs" name="type" value={currentTodo.type}>
+                                <option disabled selected>Select</option>
+                                <option>Task</option>
+                                <option>Event</option>
+                                <option>Study</option>
+                              </select></td>
+                            </tr>
+                            <tr>
+                              <th>3</th>
+                              <td>Date (MM/DD/YYYY)</td>
+                              <td><input type="text" name="date" placeholder="Type here" class="input input-bordered input-sm w-full max-w-xs" value={currentTodo.date}/></td>
+                            </tr>
+                            <tr>
+                                <th>6</th>
+                                <td>Notes</td>
+                                <td>
+                                    <textarea class="textarea textarea-bordered" name="notes" placeholder="Bio" value={currentTodo.notes}></textarea>
+                                </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+              <div class="form-contorl modal-action">
+            
+              <button class="btn">Update</button>
+               
+            </div>
+          </form>
+          {/if}
+          </div>
+          </dialog>
           <form method = "POST" action = "?/delete">
             <input name = "id" type = "hidden" hidden value = {todo._id}>
-            <button class = "btn btn-error text-white btn-xs">Delete</button>
+            <button class = "btn btn-error text-white btn-sm ml-2">Delete</button>
           </form>
         </div>
-      
+        </div>
       </div>
     {/each}
     
