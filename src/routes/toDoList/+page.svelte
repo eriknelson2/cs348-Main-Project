@@ -29,7 +29,9 @@
     
     
     {#each todos as todo}
+    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
     <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 displayCards">
+      <input type = "checkbox">
         <div class="collapse-title text-xl font-medium">
           Title: {todo.title} &nbsp;
           Type: {todo.type} &nbsp; 
@@ -37,7 +39,12 @@
         </div>
         <div class="collapse-content"> 
           <p>Notes: {todo.notes}</p>
+          <form method = "POST" action = "?/delete">
+            <input name = "id" type = "hidden" hidden value = {todo._id}>
+            <button class = "btn btn-error text-white btn-xs">Delete</button>
+          </form>
         </div>
+      
       </div>
     {/each}
     
