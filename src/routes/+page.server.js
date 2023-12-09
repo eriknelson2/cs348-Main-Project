@@ -2,6 +2,7 @@
 import 'dotenv/config'
 import fetch from 'node-fetch';
 import axios from 'axios';
+import client from '$db/mongo';
 
 export const load = async () => {
     const fetchSessions = async () => {
@@ -82,4 +83,12 @@ export const actions = {
                 'api-key': apiKey,
             }
         });
-        }}
+        },
+    
+    deleteAll: async ({request}) => {
+        const sessionCollection = client.collection('FocusSessions');
+        const results = await sessionCollection.deleteMany();
+        console.log('Deleted all sessions')
+    }
+    
+    }

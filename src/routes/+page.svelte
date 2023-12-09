@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
     export let data;
 
     // Extract documents array from the data
@@ -36,7 +38,11 @@
   <div class = "header">
     Current Focus Sessions
 </div>
-</div>
+  <form method="POST" action = "?/deleteAll">
+    <button class = "btn btn-error text-white btn-md deleteAll">Delete All Sessions</button>
+
+  </form>
+  </div>
 
   <div class="flex flex-col w-full">
     <div class="divider"></div> 
@@ -178,6 +184,11 @@
   </div>
 {/each}
 
+<div class = "header2">
+  Focus Session Report
+</div>
+
+
 
 <style>
     .filterButton {
@@ -194,7 +205,19 @@
         font-size: 2em;
         font-family: 'Roboto', sans-serif;;
         font-weight: 'bold';
-        margin-left: 450px;
+        margin-left: 475px;
+    }
+    .header2 {
+      margin-top: 30px;
+        margin-bottom: 10px;
+        color: black;
+        font-size: 2em;
+        font-family: 'Roboto', sans-serif;;
+        font-weight: 'bold';
+        text-align: center;
+    }
+    .deleteAll {
+      margin-left: 800px;
     }
 
 </style>

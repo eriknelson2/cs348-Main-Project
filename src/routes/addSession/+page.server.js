@@ -30,7 +30,6 @@ export const actions = {
           dueDate,
           notes,
         };
-        
         const sessionCollection = client.collection('FocusSessions');
         const todoCollection = client.collection('todos');
         try {
