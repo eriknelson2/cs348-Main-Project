@@ -182,7 +182,7 @@
       </dialog>
       <form method="POST" action = "?/delete">
         <input name = "id" type = "hidden" hidden value = {session._id}>
-      <button class = "btn btn-error text-white btn-sm ml-2">Delete</button>
+      <button class = "btn btn-error text-white btn-sm">Delete</button>
     </form>
       
     </div>
@@ -192,7 +192,7 @@
 
 
 <form method="POST" action="?/getStatistics">
-<div class = "flex">
+<div class = "flex justify-content">
   <select class="select select-bordered w-full max-w-xs mt-5" name="eventType">
     <option disabled selected>Select Event Type To Filter By</option>
     <option>Task</option>
@@ -240,7 +240,8 @@
         font-size: 2em;
         font-family: 'Roboto', sans-serif;;
         font-weight: 'bold';
-        margin-left: 800px;
+        margin-left: auto;
+        margin-right: auto;
     }
     .header2 {
       margin-top: 30px;
@@ -250,13 +251,18 @@
         font-family: 'Roboto', sans-serif;;
         font-weight: 'bold';
         text-align: center;
-        margin-left: 490px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        align-items: center;
     }
     .deleteAll {
-      margin-left: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .getStatistics {
-      margin-left: 625px;
+      margin-left: auto;
+      margin-right: auto;
       margin-top: 25px;
     }
     .statistics {
