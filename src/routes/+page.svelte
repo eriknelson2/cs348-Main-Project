@@ -29,13 +29,6 @@
     myModal.showModal();
   };
 
-  
-/*
-  const updateFormData = async () => {
-    alert('working');
-    let sessionStatistics = form.statistics || [];
-  };*/
-
 </script>
 
 

@@ -54,7 +54,6 @@ export const actions = {
 
     update: async ({request}) => {
         const data = await request.formData();
-        console.log(data)
         const sessionId = String(data.get('id'));
         const title = String(data.get('title'));
         const type = data.get('type');
@@ -90,7 +89,6 @@ export const actions = {
     deleteAll: async ({request}) => {
         const sessionCollection = client.collection('FocusSessions');
         const results = await sessionCollection.deleteMany();
-        console.log('Deleted all sessions')
     },
 
     getStatistics: async({request}) => {
@@ -204,7 +202,6 @@ export const actions = {
         
 
     const resultArray = await resultCursor.toArray();
-    console.log(resultArray);
     return {success: true, statistics: resultArray};
     }
     
