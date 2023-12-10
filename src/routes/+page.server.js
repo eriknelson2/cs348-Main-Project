@@ -29,6 +29,8 @@ export const load = async () => {
 
 }
 
+
+
 export const actions = {
     delete: async ({request}) => {
         const data = await request.formData();
@@ -89,6 +91,122 @@ export const actions = {
         const sessionCollection = client.collection('FocusSessions');
         const results = await sessionCollection.deleteMany();
         console.log('Deleted all sessions')
+    },
+
+    getStatistics: async({request}) => {
+        const data = await request.formData();
+        let eventType;
+        let resultCursor;
+        eventType = data.get('eventType');
+        const sessionCollection = client.collection('FocusSessions');
+        if (eventType == null) {
+            resultCursor = await sessionCollection.aggregate([
+            {
+              '$group': {
+                '_id': '$type',
+                'totalByType': {
+                  '$sum': 1,
+                },
+                'totalDuration': {
+                  '$sum': {
+                    '$toInt': '$duration',
+                  },
+                },
+              },
+            },
+            {
+              '$project': {
+                '_id': 0,
+                'type': '$_id',
+                'numSessions': '$totalByType',
+                'totalDuration': '$totalDuration',
+              },
+            },
+            {
+              '$group': {
+                '_id': null,
+                'totalSessions': {
+                  '$sum': '$numSessions',
+                },
+                'sessionsByType': {
+                  '$push': '$$ROOT',
+                },
+                'totalDuration': {
+                  '$sum': '$totalDuration',
+                },
+                'averageDuration': {
+                  '$avg': '$totalDuration',
+                },
+              },
+            },
+            {
+              '$project': {
+                '_id': 0,
+                'totalSessions': 1,
+                'sessionsByType': 1,
+                'totalDuration': 1,
+                'averageDuration': 1,
+              },
+            },
+          ]);
+        } else {
+            resultCursor = await sessionCollection.aggregate([
+                {
+                  '$match': {
+                    'type': eventType
+                  }
+                }, {
+                  '$group': {
+                    '_id': '$type', 
+                    'totalByType': {
+                      '$sum': 1
+                    }, 
+                    'totalDuration': {
+                      '$sum': {
+                        '$toInt': '$duration'
+                      }
+                    }
+                  }
+                }, {
+                  '$project': {
+                    '_id': 0, 
+                    'type': '$_id', 
+                    'numSessions': '$totalByType', 
+                    'totalDuration': '$totalDuration'
+                  }
+                }, {
+                  '$group': {
+                    '_id': null, 
+                    'totalSessions': {
+                      '$sum': '$numSessions'
+                    }, 
+                    'sessionsByType': {
+                      '$push': '$$ROOT'
+                    }, 
+                    'totalDuration': {
+                      '$sum': '$totalDuration'
+                    }, 
+                    'averageDuration': {
+                      '$avg': '$totalDuration'
+                    }
+                  }
+                }, {
+                  '$project': {
+                    '_id': 0, 
+                    'totalSessions': 1, 
+                    'sessionsByType': 1, 
+                    'totalDuration': 1, 
+                    'averageDuration': 1
+                  }
+                }
+              ]);
+        }
+        
+
+    const resultArray = await resultCursor.toArray();
+    console.log(resultArray);
+    return {success: true, statistics: resultArray};
     }
     
     }
+

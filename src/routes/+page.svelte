@@ -1,11 +1,15 @@
 <script>
 // @ts-nocheck
+    import {onMount} from 'svelte';
 
     export let data;
+    export let form;
+
 
     // Extract documents array from the data
     // @ts-ignore
     const { documents } = data.focusSessions;
+      
 
     // Assuming documents is an array
     let focusSessions = documents || [];
@@ -23,18 +27,20 @@
     currentSession = session;
     // @ts-ignore
     myModal.showModal();
-  }
+  };
+
+  
+/*
+  const updateFormData = async () => {
+    alert('working');
+    let sessionStatistics = form.statistics || [];
+  };*/
 
 </script>
+
+
 <div class = "flex">
-<details class="dropdown filterButton dropdown-hover">
-    <summary class="m-1 btn">Filter By</summary>
-    <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-      <li><a>Date</a></li>
-      <li><a>Type</a></li>
-      <li><a>Duration</a></li>
-    </ul>
-  </details>
+
   <div class = "header">
     Current Focus Sessions
 </div>
@@ -184,11 +190,40 @@
   </div>
 {/each}
 
+
+<form method="POST" action="?/getStatistics">
+<div class = "flex">
+  <select class="select select-bordered w-full max-w-xs mt-5" name="eventType">
+    <option disabled selected>Select Event Type To Filter By</option>
+    <option>Task</option>
+    <option>Event</option>
+    <option>Study</option>
+  </select>
 <div class = "header2">
   Focus Session Report
 </div>
+<button class = "btn btn-md getStatistics">Get Statistics</button>
+</div>
+</form>
 
+<div class="flex flex-col w-full">
+  <div class="divider"></div> 
+</div>
+<div class = "statistics">
+{#if form?.success}
+  {#if form.statistics}
+    <p>Total Sessions: {form.statistics[0].totalSessions}</p>
+    <p>Total Duration: {form.statistics[0].totalDuration}</p>
+    <p>Average Duration: {form.statistics[0].averageDuration}</p>
 
+    {#if form.statistics[0].sessionsByType}
+      {#each form.statistics[0].sessionsByType as session (session.type)}
+        <p>{session.type}: {session.numSessions} sessions, {session.totalDuration} total hours</p>
+      {/each}
+    {/if}
+  {/if}
+{/if}
+</div>
 
 <style>
     .filterButton {
@@ -205,7 +240,7 @@
         font-size: 2em;
         font-family: 'Roboto', sans-serif;;
         font-weight: 'bold';
-        margin-left: 475px;
+        margin-left: 800px;
     }
     .header2 {
       margin-top: 30px;
@@ -215,9 +250,19 @@
         font-family: 'Roboto', sans-serif;;
         font-weight: 'bold';
         text-align: center;
+        margin-left: 490px;
     }
     .deleteAll {
-      margin-left: 800px;
+      margin-left: 600px;
+    }
+    .getStatistics {
+      margin-left: 625px;
+      margin-top: 25px;
+    }
+    .statistics {
+      text-align: center;
+      font-size: 1.5em;
+      font-family: 'Roboto', sans-serif;
     }
 
 </style>
