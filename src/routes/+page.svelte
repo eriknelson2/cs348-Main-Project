@@ -1,6 +1,5 @@
 <script>
 // @ts-nocheck
-    import {onMount} from 'svelte';
 
     export let data;
     export let form;
